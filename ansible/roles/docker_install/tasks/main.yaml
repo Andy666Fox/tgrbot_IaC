@@ -19,46 +19,27 @@
     state: present
     update_cache: yes
 
-# - name: docker_key_adding
-#   apt_key:
-#     url: https://download.docker.com/linux/ubuntu/gpg
-#     state: present
+- name: docker_key_adding
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
     
-# - name: docker_repo_adding
-#   apt_repository:
-#     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-#     state: present
-#     filename: docker
+- name: docker_repo_adding
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu/dists/noble/stable/
+    state: present
+    filename: docker
 
-# - name: update apt package cache 
-#   ansible.builtin.apt:
-#     update_cache: yes
+- name: update apt package cache 
+  ansible.builtin.apt:
+    update_cache: yes
 
-# - name: install_docker
-#   apt:
-#     name: docker-ce
-#     state: present
-#     update_cache: yes
-#   notify: Restart_docker
-
-- name: create docker bin directory
-  file:
-    path: /usr/local/bin/docker
-    state: directory 
-
-- name: download docker static binaries
-  get_url:
-    url: "https://download.docker.com/linux/static/stable/{{ 'x86_64' if ansible_architecture == 'x86_64' else 'aarch64' }}/docker-24.0.7.tgz"
-    dest: /tmp/docker.tgz
-    checksum: "sha256:67b1b9a9da334f8d5fe6d453dc4270e5a1d5625c5d1a1d7f1e9b3b05a2b0f8b7"
-
-- name: Extract Docker binaries
-  unarchive:
-    src: /tmp/docker.tgz
-    dest: /usr/local/bin/
-    extra_opts: "--strip-components=1"
-    remote_src: yes
-    mode: preserve
+- name: install_docker
+  apt:
+    name: docker-ce
+    state: present
+    update_cache: yes
+  notify: Restart_docker
 
 - name: adding_user_to_docker_group
   user:
