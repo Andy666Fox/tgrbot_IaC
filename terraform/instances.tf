@@ -1,6 +1,6 @@
 resource "yandex_compute_instance" "tgrbot-vm1" {
     name = "tgrbot-vm1"
-    platform_id = "standart-v3"
+    platform_id = "standard-v3"
     zone = "${var.av_zone}"
 
     resources {
