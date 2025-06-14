@@ -22,7 +22,7 @@
 
 - name: docker_key_adding
   apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
+    url: https://download.docker.com/linux/debian/gpg
     state: present
     
 - name: docker_repo_adding
