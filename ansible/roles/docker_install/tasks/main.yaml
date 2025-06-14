@@ -24,9 +24,13 @@
     
 - name: docker_repo_adding
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} edge"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     state: present
     filename: docker
+
+- name: update apt package cache 
+  ansible.builtin.apt:
+    update_cache: yes
 
 - name: install_docker
   apt:
