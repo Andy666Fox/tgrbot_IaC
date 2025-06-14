@@ -19,3 +19,4 @@ terraform {
 provider "yandex" {
     zone = "${var.av_zone}"
 }
+

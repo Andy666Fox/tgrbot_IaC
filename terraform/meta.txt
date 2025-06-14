@@ -1,0 +1,12 @@
+#cloud-config
+users:
+    - name: andy-cp 
+      groups: sudo
+      shell: /bin/bash
+      sudo: 'ALL=(ALL) NOPASSWD:ALL'
+      ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJk3a6ZN4wKnnUCvWyGke3de6PQtf7q5YsO0b5hoaLlI andy-cp@control-plane
+
+
+
+      
