@@ -2,11 +2,12 @@
 - name: apt_cache_update
   apt:
     update_cache: yes
+    state: latest
+    upgrade: dist
 
 - name: install_additional_packages
   apt:
     name:
-      - aptitude
       - git
       - apt-transport-https
       - ca-certificates
@@ -17,31 +18,69 @@
       - bash-completion
       - lsb-release
       - iptables
-    state: present
+    state: latest
     update_cache: yes
 
-- name: docker_key_adding
-  apt_key:
-    url: https://download.docker.com/linux/debian/gpg
-    state: present
+# - name: docker_key_adding
+#   apt_key:
+#     url: https://download.docker.com/linux/debian/gpg
+#     state: present
     
-- name: docker_repo_adding
-  apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
-    state: present
-    filename: docker
-    update_cache: yes
+# - name: docker_repo_adding
+#   apt_repository:
+#     repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+#     state: present
+#     filename: docker
+#     update_cache: yes
 
-- name: install_docker
+# - name: install_docker
+#   apt:
+#     name: docker-ce
+#     state: present
+#     update_cache: yes
+#   notify: Restart_docker
+
+- name: create the /etc/apt/keyrings directory
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: download dockers gpg key 
+  get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: '0644'
+
+- name: add docker repo
+  copy:
+    content: |
+      deb [arch={{ arch_mapping[ansible_architecture] }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable 
+    dest: /etc/apt/sources.list.d/docker.list
+
+- name: install docker-ce 
   apt:
     name: docker-ce
-    state: present
+    state: latest 
+    update_cache: yes 
+
+- name: update apt package index again
+  apt: 
     update_cache: yes
-  notify: Restart_docker
+
+- name: install docker packages 
+  apt: 
+    name: 
+      - docker-ce 
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: latest
 
 - name: adding_user_to_docker_group
   user:
-    name: username
+    name: andy-cp
     groups: docker
     append: yes
     
