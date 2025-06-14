@@ -19,6 +19,6 @@ resource "yandex_compute_instance" "tgrbot-vm1" {
 
     metadata = {
         fqdn = "tgrbot-vm1.${var.service_dns_zone}"
-        user-data = "${file("terraform/meta.txt")}"
+        user-data = "${file("./meta.txt")}"
     }
 }
