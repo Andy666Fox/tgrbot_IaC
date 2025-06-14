@@ -11,6 +11,6 @@ provider "yandex" {
     zone = "${var.av_zone}"
 }
 
-metadata = {
+metadata {
     user-data = "${file(meta.txt)}"
 }

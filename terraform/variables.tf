@@ -7,7 +7,7 @@ variable "boot_disk_size" {
 }
 
 variable "av_zone" {
-    default "ru-central1-b"
+    default = "ru-central1-b"
 }
 
 variable "ubuntu_image_id" {
