@@ -10,7 +10,3 @@ terraform {
 provider "yandex" {
     zone = "${var.av_zone}"
 }
-
-metadata {
-    user-data = "${file(meta.txt)}"
-}

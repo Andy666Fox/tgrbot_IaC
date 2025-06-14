@@ -11,5 +11,5 @@ variable "av_zone" {
 }
 
 variable "ubuntu_image_id" {
-    default = fd8o5ddn529a6s8aldav
+    default = "fd8o5ddn529a6s8aldav"
 }
