@@ -9,16 +9,16 @@ resource "yandex_compute_instance" "tgrbot-vm1" {
     }
 
     boot_disk {
-        disk_id = yandex_compute_disk.boot_disk-vm1.id
+        disk_id = "yandex_compute_disk.boot_disk-vm1.id"
     }
 
     network_interface {
-        subnet_id = e2ldgqcbssceluk4rrho
+        subnet_id = "e2ldgqcbssceluk4rrho"
         nat = true
     }
 
     metadata = {
         fqdn = "tgrbot-vm1.${var.service_dns_zone}"
-        user-data = "${file(meta.txt)}"
+        user-data = "${file("meta.txt")}"
     }
 }
