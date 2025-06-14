@@ -45,6 +45,6 @@
 - name: instalation_check
   command: docker --verison
   register: docker_version
-- debug:
-  var: docker_version.stdout
+#- debug:
+    #var: docker_version.stdout
 
