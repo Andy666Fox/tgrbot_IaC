@@ -21,4 +21,9 @@ resource "yandex_compute_instance" "tgrbot-vm1" {
         fqdn = "tgrbot-vm1.${var.service_dns_zone}"
         user-data = "${file("./meta.txt")}"
     }
+
+    output "vm_internal_ip" {
+      value       = yandex_compute_instance.vm.network_interface[0].ip_address
+    }
+    
 }
