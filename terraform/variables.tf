@@ -17,3 +17,8 @@ variable "ubuntu_image_id" {
 variable "debian_image_id" {
     default = "fd8fmmpanqj0dun552e9"
 }
+
+variable "jenkins_image_id" {
+    default = "fd8mgd3qkbv291qq429a"
+}
+
