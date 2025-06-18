@@ -4,8 +4,8 @@ resource "yandex_compute_instance" "tgrbot-vm1" {
     zone = "${var.av_zone}"
 
     resources {
-        cores = "2"
-        memory = "2"
+        cores = "4"
+        memory = "4"
     }
 
     boot_disk {
@@ -23,27 +23,27 @@ resource "yandex_compute_instance" "tgrbot-vm1" {
     }
 }
 
-resource "yandex_compute_instance" "jenkins-server" {
-    name = "jenkins-server"
-    platform_id = "standard-v1"
-    zone = "${var.av_zone}"
+# resource "yandex_compute_instance" "jenkins-server" {
+#     name = "jenkins-server"
+#     platform_id = "standard-v1"
+#     zone = "${var.av_zone}"
 
-    resources {
-        cores = "3"
-        memory = "4"
-    }
+#     resources {
+#         cores = "3"
+#         memory = "4"
+#     }
 
-    boot_disk {
-        disk_id = yandex_compute_disk.boot-disk-jenkins.id
-    }
+#     boot_disk {
+#         disk_id = yandex_compute_disk.boot-disk-jenkins.id
+#     }
 
-    network_interface {
-        subnet_id = "e2ldgqcbssceluk4rrho"
-        nat = true
-    }
+#     network_interface {
+#         subnet_id = "e2ldgqcbssceluk4rrho"
+#         nat = true
+#     }
 
-    metadata = {
-        fqdn = "jenkins-server.${var.service_dns_zone}"
-        user-data = "${file("./meta.txt")}"
-    }
-}
+#     metadata = {
+#         fqdn = "jenkins-server.${var.service_dns_zone}"
+#         user-data = "${file("./meta.txt")}"
+#     }
+# }

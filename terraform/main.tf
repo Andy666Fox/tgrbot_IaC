@@ -17,6 +17,9 @@ terraform {
 }
 
 provider "yandex" {
+    token = "$(yc iam create-token)"
+    cloud_id = "$(yc config get cloud-id)"
+    folder_id = "$(yc config get folder-id)"
     zone = "${var.av_zone}"
 }
 

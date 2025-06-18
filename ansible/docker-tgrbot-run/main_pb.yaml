@@ -1,0 +1,55 @@
+---
+- name: deploy tgrbot
+  hosts: all
+  become: true
+  vars:
+
+
+  tasks:
+  - name: install aptitude
+    apt:
+      name: aptitude
+      state: latest
+      update_cache: true 
+
+  - name: install reqs
+    apt:
+      pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+        - python3-pip
+        - virtualenv
+        - python3-setuptools
+        - git 
+        - docker.io 
+        - docker-compose
+      state: latest
+      update_cache: true
+
+  - name: add docker gpg key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: add docker repo
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+      state: present
+
+  - name: install docker-ce
+    apt: 
+      name: docker-ce 
+      state: latest
+      update_cache: true 
+
+  - name: clone tgrbot repo 
+    ansible.builtin.git:
+      repo: https://github.com/Andy666Fox/random_bot_lite.git
+      dest: /opt/tgrbot
+
+  - name: run docker compose 
+    command: docker compose up -d --build
+
+  
