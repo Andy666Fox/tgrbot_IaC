@@ -20,10 +20,8 @@
         - curl
         - software-properties-common
         - python3-pip
-        - virtualenv
         - python3-setuptools
         - git 
-        - docker.io 
         - docker-compose
       state: latest
       update_cache: true
