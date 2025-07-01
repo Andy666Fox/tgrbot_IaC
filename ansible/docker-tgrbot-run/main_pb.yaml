@@ -4,14 +4,6 @@
   become: true
   vars:
 
-
-  tasks:
-  - name: install aptitude
-    apt:
-      name: aptitude
-      state: latest
-      update_cache: true 
-
   - name: install reqs
     apt:
       pkg:
